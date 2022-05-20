@@ -24,9 +24,7 @@ function spinningRings(innerMax, outerMax) {
     } while (num1 !== num2)
     return step
 };
-console.log(spinningRings(2,3))
-
-
+//console.log(spinningRings(2,3))
 
 /*describe("Tests", () => {
     it("test", () => {
