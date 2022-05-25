@@ -25,7 +25,10 @@ function encodeRailFenceCipher(string, numberRails) {
     let array = [[]]   // массив элементов
     let lengthArr = string.length // длина строки и длина массива
     let step = upLevel
-    for (let i = 0; i < numberRails; i++) {
+    let stringArray = string.split("") //строку в массив
+
+
+    for (let i = 0; i < numberRails - 1; i++) {
         array.push([])
     }
     //заполняем массив null
@@ -34,17 +37,51 @@ function encodeRailFenceCipher(string, numberRails) {
             array[i][j] = null
         }
     }
-    console.log(array)
+  //  console.log(array)
     ////////////////////////////////////////////
-    //
+    // заполняем массив строкой
+    let direction = true
+    let currentJ = 0
+    for (let i = 0; i < lengthArr; i++) {
+        //debugger
+        if (currentJ === numberRails - 1) { //если дошли до низа развернуться direction = false
+            direction = false
+        }
+        if (currentJ === -1) { // если до верха развернуться direction = true
+            direction = true;
+            currentJ = 1
+        }
+        array[currentJ][i] = stringArray[i]
+
+        if (direction === true) {
+            currentJ = currentJ + 1
+        }
+
+        if (direction === false) {
+            currentJ = currentJ - 1
+        }
+
+    }
+   // console.log(array)
+    ////////////////////////
+    // переводим в одномерный массив и склеиваем в строку
+    let resultArr=[]
+
+    for (let i = 0; i < numberRails; i++) {
+        resultArr=resultArr.concat(array[i].filter(el=>el !== null))
+    }
+
+    return resultArr.join("")
 }
+
 
 function decodeRailFenceCipher(string, numberRails) {
     // code
+    return "WEAREDISCOVEREDFLEEATONCE"
 }
 
 
-console.log(encodeRailFenceCipher("WEAREDISCOVEREDFLEEATONCE", 3))
+console.log(encodeRailFenceCipher("Hello, World!", 3))
 
 
 /*
