@@ -20,10 +20,23 @@ Write a function/method that takes 2 arguments, a string and the number of rails
 include punctuation. Don't filter out punctuation as they are a part of the string.*/
 
 function encodeRailFenceCipher(string, numberRails) {
-    // рисуем
-    let array=[[]]
 
-
+    let upLevel = 2 * numberRails - 3  // максимальный шаг между элементами, первая строка
+    let array = [[]]   // массив элементов
+    let lengthArr = string.length // длина строки и длина массива
+    let step = upLevel
+    for (let i = 0; i < numberRails; i++) {
+        array.push([])
+    }
+    //заполняем массив null
+    for (let i = 0; i < numberRails; i++) {
+        for (let j = 0; j < lengthArr; j++) {
+            array[i][j] = null
+        }
+    }
+    console.log(array)
+    ////////////////////////////////////////////
+    //
 }
 
 function decodeRailFenceCipher(string, numberRails) {
@@ -32,9 +45,6 @@ function decodeRailFenceCipher(string, numberRails) {
 
 
 console.log(encodeRailFenceCipher("WEAREDISCOVEREDFLEEATONCE", 3))
-
-
-
 
 
 /*
