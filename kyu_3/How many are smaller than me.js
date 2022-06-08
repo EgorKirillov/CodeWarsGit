@@ -18,21 +18,68 @@
 //     Test.assertSimilar(smaller([5, 4, 7, 9, 2, 4, 4, 5, 6]), [4, 1, 5, 5, 0, 0, 0, 0, 0]);
 // });
 
+/*
 function smaller(arr) {
-    let rez = []
-    for (let i = 0; i < arr.length - 1; i++) {
+    let rez = arr.slice()
+    rez[rez.length - 1] = 0
+    console.log(arr)
+    console.log(rez)
+    for (let i = arr.length - 2; i >= 0; i--) {
         let count = 0
-        if (arr[i] === arr[i - 1]) {
-            count = rez[i-1]
+        if (arr[i] === arr[i + 1]) {
+            count = rez[i + 1]
         } else for (let j = i + 1; j < arr.length; j++) {
-            if (arr[j] < arr[i]) {count += 1            }
+            if (arr[j] < arr[i]) {
+                count += 1
+            } else {
+                if (arr[j] === arr[i]) {
+                    count += rez[j]
+                    break
+                }
+            }
         }
-        rez.push(count)
+        rez[i] = count
     }
-    rez.push(0)
     console.log(rez)
     return rez
 }
 
 console.log(smaller([5, 4, 7, 9, 2, 4, 4, 5, 6]))
 //                      [4, 1, 5, 5, 0, 0, 0, 0, 0])
+*/
+
+//решение спиздил, как решил автор не понял
+const smaller = a => {
+    const result = [];
+    let root = null;
+    for (let i = a.length - 1; i >= 0; i--) {
+        root = insert(a[i], root, result, i, 0);
+    }
+    return result;
+};
+
+const insert = (n, node, r, i, s) => {
+    if (node === null) {
+        node = new Node(n, 0);
+        r[i] = s;
+    } else if (node.value === n) {
+        node.count++;
+        r[i] = s + node.sum;
+    } else if (node.value > n) {
+        node.sum++;
+        node.left = insert(n, node.left, r, i, s);
+    } else {
+        node.right = insert(n, node.right, r, i, s + node.count + node.sum);
+    }
+    return node;
+}
+
+class Node {
+    constructor (v, s) {
+        this.value = v;
+        this.sum = s;
+        this.count = 1;
+        this.right = null;
+        this.left = null;
+    }
+}
